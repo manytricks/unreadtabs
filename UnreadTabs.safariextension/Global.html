@@ -14,10 +14,7 @@
 				if (theURLs) {
 					var theNumberOfURLs = theURLs.length;
 					if (theNumberOfURLs>0) {
-						theEvent.contextMenu.appendContextMenuItem(
-							'com.manytricks.UnreadTabs.Open',
-							((theNumberOfURLs==1) ? 'Open Unread Post in New Tab' : 'Open ' + theNumberOfURLs + ' Unread Posts in New Tabs')
-						);
+						theEvent.contextMenu.appendContextMenuItem('com.manytricks.UnreadTabs.Open', ((theNumberOfURLs==1) ? 'Open Unread Post in New Tab' : 'Open ' + theNumberOfURLs + ' Unread Posts in New Tabs'));
 					}
 				}
 			}, false);
@@ -30,9 +27,10 @@
 						if (theNumberOfURLs>0) {
 							var theWindow = safari.application.activeBrowserWindow;
 							var theCurrentTab = theWindow.activeTab;
-							var theFocusSetting = safari.extension.settings.getItem('com.manytricks.UnreadTabs.Focus');
+							var theSettings = safari.extension.settings;
+							var theFocusSetting = theSettings.getItem('com.manytricks.UnreadTabs.Focus');
 							var theNewTabLevel = ((theFocusSetting=='current') ? 'background' : 'foreground');
-							if (safari.extension.settings.getItem('com.manytricks.UnreadTabs.Position')=='next') {
+							if (theSettings.getItem('com.manytricks.UnreadTabs.Position')=='next') {
 								var theTabs = theWindow.tabs;
 								var theNumberOfTabs = theTabs.length;
 								var theIndex = 1;
