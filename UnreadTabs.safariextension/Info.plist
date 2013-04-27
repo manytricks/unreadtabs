@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Many Tricks</string>
+	<key>Builder Version</key>
+	<string>8536.29.13</string>
+	<key>CFBundleDisplayName</key>
+	<string>Unread → Tabs</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.manytricks.Safari.UnreadTabs</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1005</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Context Menu Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>com.manytricks.UnreadTabs.Open</string>
+				<key>Identifier</key>
+				<string>com.manytricks.UnreadTabs.OpenContextMenuItem</string>
+				<key>Title</key>
+				<string>&lt;&lt; Open &gt;&gt;</string>
+			</dict>
+		</array>
+		<key>Global Page</key>
+		<string>Global.html</string>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict>
+			<key>Start</key>
+			<array>
+				<string>Inject.js</string>
+			</array>
+		</dict>
+	</dict>
+	<key>Description</key>
+	<string>Adds a context menu item that lets you open all unread posts linked from a forum page in new tabs with just one click</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
+	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://manytricks.com/safariextensions/updatemanifest.plist</string>
+	<key>Website</key>
+	<string>http://manytricks.com</string>
+</dict>
+</plist>

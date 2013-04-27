@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Unread Tabs</title>
+		<meta charset="utf-8">
+		<script type="text/javascript">
+
+			// Copyright © 2013 Many Tricks (When in doubt, consider this MIT-licensed)
+
+			var theApplication = safari.application;
+
+			theApplication.addEventListener("validate", function(theEvent) {
+				if (theEvent.command=="com.manytricks.UnreadTabs.Open") {
+					var theTarget = theEvent.target;
+					var theNumberOfURLs = theEvent.userInfo.length;
+					switch (theNumberOfURLs) {
+						case 0:
+							theTarget.disabled = true;
+							break;
+						case 1:
+							theTarget.title = "Open Unread Post in New Tab";
+							theTarget.disabled = false;
+							break;
+						default:
+							theTarget.title = "Open " + theNumberOfURLs + " Unread Posts in New Tabs";
+							theTarget.disabled = false;
+							break;
+					}
+				}
+			}, false);
+
+			theApplication.addEventListener("command", function(theEvent) {
+				if (theEvent.command=="com.manytricks.UnreadTabs.Open") {
+					var theURLs = theEvent.userInfo;
+					if (theURLs.length>0) {
+						var theWindow = safari.application.activeBrowserWindow;
+						var theCurrentTab = theWindow.activeTab;
+						var theFocusSetting = safari.extension.settings.getItem("com.manytricks.UnreadTabs.Focus");
+						var theNewTabLevel = ((theFocusSetting=="current") ? "background" : "foreground");
+						if (safari.extension.settings.getItem("com.manytricks.UnreadTabs.Position")=="next") {
+							var theTabs = theWindow.tabs;
+							var theNumberOfTabs = theTabs.length;
+							var theIndex = 1;
+							var i;
+							if (theNumberOfTabs>1) {
+								for (i = 0; i<theNumberOfTabs; i++) {
+									if (theTabs[i]===theCurrentTab) {
+										theIndex = i + 1;
+										break;
+									}
+								}
+							}
+							for (i = 0; i<theURLs.length; i++) {
+								theWindow.openTab(theNewTabLevel, theIndex++).url = theURLs[i];
+							}
+						} else {
+							for (i = 0; i<theURLs.length; i++) {
+								theWindow.openTab(theNewTabLevel).url = theURLs[i];
+							}
+						}
+						if (theFocusSetting=="close") {
+							theCurrentTab.close();
+						}
+					} else {
+						alert("No new posts detected on this page");
+					}
+				}
+			}, false);
+
+		</script>
+	</head>
+	<body></body>
+</html>

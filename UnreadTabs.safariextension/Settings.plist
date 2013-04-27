@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>DefaultValue</key>
+		<string>next</string>
+		<key>Key</key>
+		<string>com.manytricks.UnreadTabs.Position</string>
+		<key>Title</key>
+		<string>Open new tabs</string>
+		<key>Titles</key>
+		<array>
+			<string>Next to current tab</string>
+			<string>On the far right</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<string>next</string>
+			<string>right</string>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>current</string>
+		<key>Key</key>
+		<string>com.manytricks.UnreadTabs.Focus</string>
+		<key>Title</key>
+		<string>Then focus on</string>
+		<key>Titles</key>
+		<array>
+			<string>Current tab</string>
+			<string>Last new tab — Keep current tab</string>
+			<string>Last new tab — Close current tab</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<string>current</string>
+			<string>new</string>
+			<string>close</string>
+		</array>
+	</dict>
+</array>
+</plist>
