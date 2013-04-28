@@ -6,19 +6,21 @@ document.addEventListener('contextmenu', function(theEvent) {
 	var theNumberOfAnchors = theAnchors.length;
 	if (theNumberOfAnchors>0) {
 		/*
-			vBulletin:
-				[&?]goto=newpost
-				-new.htm
-				-new-post.htm
+			Match the following URL fragments...
+
+				vBulletin:
+					[&?]goto=newpost
+					-new(-post).htm
 		
-			Burning Board:
-				[&?]action=firstnew
+				Burning Board:
+					[&?]action=firstnew
+
 		*/
-		var theRegularExpression = /[&?]goto=newpost|-new\.htm|-new-post\.htm|[&?]action=firstnew/i;
-		var i;
+		var theRegularExpression = /[&?]goto=newpost|-new(-post)?\.htm|[&?]action=firstnew/i;
+		var anAnchorIndex;
 		var aURL;
-		for (i = 0; i<theAnchors.length; i++) {
-			aURL = theAnchors[i].href;
+		for (anAnchorIndex = 0; anAnchorIndex<theNumberOfAnchors; anAnchorIndex++) {
+			aURL = theAnchors[anAnchorIndex].href;
 			if ((aURL) && (aURL.match(theRegularExpression)) && (theURLs.indexOf(aURL)===-1)) {
 				theURLs.push(aURL);
 			}
