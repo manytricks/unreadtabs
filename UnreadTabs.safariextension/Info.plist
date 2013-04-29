@@ -15,7 +15,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1008</string>
+	<string>1009</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -32,7 +32,7 @@
 		</dict>
 	</dict>
 	<key>Description</key>
-	<string>Adds a context menu item that lets you open all unread posts linked from a forum page in new tabs with just one click</string>
+	<string>Use a contextual menu item to open all unread forum posts in new tabs, with just one click.</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
