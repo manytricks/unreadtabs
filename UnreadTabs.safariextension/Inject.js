@@ -18,12 +18,12 @@ document.addEventListener('contextmenu', function (theEvent) {
 
 		*/
 		var theRegularExpression = /[&?]goto=newpost|-new(-post)?\.htm|[&?]action=firstnew/i;
-		var anAnchorIndex;
+		var i;
 		var anAnchor;
 		var aURL;
 		var isSubforumAnchor;
-		for (anAnchorIndex = 0; anAnchorIndex<theNumberOfAnchors; anAnchorIndex++) {
-			anAnchor = theAnchors[anAnchorIndex];
+		for (i = 0; i<theNumberOfAnchors; i++) {
+			anAnchor = theAnchors[i];
 			aURL = anAnchor.href;
 			if ((aURL) && (aURL.match(theRegularExpression))) {
 				isSubforumAnchor = (anAnchor.getElementsByTagName('img').length<1);

@@ -11,13 +11,12 @@
 			var theLatestContextMenuURLs = null;
 
 			theApplication.addEventListener('contextmenu', function (theEvent) {
-				var theUserInfo = theEvent.userInfo;
-				theLatestContextMenuURLs = theUserInfo['com.manytricks.UnreadTabs.URLs'];
+				theLatestContextMenuURLs = theEvent.userInfo['com.manytricks.UnreadTabs.URLs'];
 				if (theLatestContextMenuURLs) {
 					var theNumberOfURLs = theLatestContextMenuURLs.length;
 					if (theNumberOfURLs>0) {
 						if (safari.extension.settings.getItem('com.manytricks.UnreadTabs.SkipSubForumPosts')) {
-							var theSubforumFlagsByURL = theUserInfo['com.manytricks.UnreadTabs.SubforumFlags'];
+							var theSubforumFlagsByURL = theEvent.userInfo['com.manytricks.UnreadTabs.SubforumFlags'];
 							var i;
 							for (i = 0; i<theNumberOfURLs; i++) {
 								if (theSubforumFlagsByURL[theLatestContextMenuURLs[i]]) {
@@ -72,18 +71,18 @@
 							if (theSettings.getItem('com.manytricks.UnreadTabs.Position')=='next') {
 								var theTabs = theWindow.tabs;
 								var theNumberOfTabs = theTabs.length;
-								var theIndex = 1;
+								var theIndexToInsertAt = 1;
 								var i;
 								if (theNumberOfTabs>1) {
 									for (i = 0; i<theNumberOfTabs; i++) {
 										if (theTabs[i]===theCurrentTab) {
-											theIndex = i + 1;
+											theIndexToInsertAt = i + 1;
 											break;
 										}
 									}
 								}
 								for (i = 0; i<theNumberOfURLs; i++) {
-									theWindow.openTab(theNewTabLevel, theIndex++).url = theLatestContextMenuURLs[i];
+									theWindow.openTab(theNewTabLevel, theIndexToInsertAt++).url = theLatestContextMenuURLs[i];
 								}
 							} else {
 								for (i = 0; i<theNumberOfURLs; i++) {
