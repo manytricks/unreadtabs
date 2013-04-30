@@ -9,17 +9,42 @@
 
 			var theApplication = safari.application;
 
-			theApplication.addEventListener('contextmenu', function(theEvent) {
+			theApplication.addEventListener('contextmenu', function (theEvent) {
 				var theURLs = theEvent.userInfo;
 				if (theURLs) {
 					var theNumberOfURLs = theURLs.length;
 					if (theNumberOfURLs>0) {
-						theEvent.contextMenu.appendContextMenuItem('com.manytricks.UnreadTabs.Open', ((theNumberOfURLs==1) ? 'Open Unread Post in New Tab' : 'Open ' + theNumberOfURLs + ' Unread Posts in New Tabs'));
+						var theLanguage = navigator.language;
+						var theMenuItemTitle;
+						if (theNumberOfURLs==1)  {
+							switch (theLanguage) {
+								case 'de-at':
+								case 'de-ch':
+								case 'de-de':
+									theMenuItemTitle = 'Ungelesen Beitrag in neuem Tab öffnen';
+									break;
+								default:
+									theMenuItemTitle = 'Open Unread Post in New Tab';
+									break;
+							}
+						} else {
+							switch (theLanguage) {
+								case 'de-at':
+								case 'de-ch':
+								case 'de-de':
+									theMenuItemTitle = theNumberOfURLs + ' ungelesene Beiträge in neuen Tabs öffnen';
+									break;
+								default:
+									theMenuItemTitle = 'Open ' + theNumberOfURLs + ' Unread Posts in New Tabs';
+									break;
+							}
+						}
+						theEvent.contextMenu.appendContextMenuItem('com.manytricks.UnreadTabs.Open', theMenuItemTitle);
 					}
 				}
 			}, false);
 
-			theApplication.addEventListener('command', function(theEvent) {
+			theApplication.addEventListener('command', function (theEvent) {
 				if (theEvent.command=='com.manytricks.UnreadTabs.Open') {
 					var theURLs = theEvent.userInfo;
 					if (theURLs) {

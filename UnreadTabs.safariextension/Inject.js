@@ -1,6 +1,6 @@
 // Copyright © 2013 Many Tricks (When in doubt, consider this MIT-licensed)
 
-document.addEventListener('contextmenu', function(theEvent) {
+document.addEventListener('contextmenu', function (theEvent) {
 	var theURLs = [];
 	var theAnchors = document.getElementsByTagName('a');
 	var theNumberOfAnchors = theAnchors.length;
