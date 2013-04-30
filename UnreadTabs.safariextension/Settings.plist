@@ -52,9 +52,9 @@
 		<key>DefaultValue</key>
 		<false/>
 		<key>Key</key>
-		<string>com.manytricks.UnreadTabs.SkipSubForumPosts</string>
+		<string>com.manytricks.UnreadTabs.SkipSubforumPosts</string>
 		<key>Title</key>
-		<string>Skip posts in subforums and forum subscription summaries</string>
+		<string>Skip posts in subforum summaries</string>
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
