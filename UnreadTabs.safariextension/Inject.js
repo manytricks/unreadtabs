@@ -1,7 +1,8 @@
 // Copyright © 2013 Many Tricks (When in doubt, consider this MIT-licensed)
 
 document.addEventListener('contextmenu', function (theEvent) {
-	var theURLs = [];
+	var theURLs = new Array();
+	var theSubforumFlagsByURL = new Object();
 	var theAnchors = document.getElementsByTagName('a');
 	var theNumberOfAnchors = theAnchors.length;
 	if (theNumberOfAnchors>0) {
@@ -18,13 +19,25 @@ document.addEventListener('contextmenu', function (theEvent) {
 		*/
 		var theRegularExpression = /[&?]goto=newpost|-new(-post)?\.htm|[&?]action=firstnew/i;
 		var anAnchorIndex;
+		var anAnchor;
 		var aURL;
+		var isSubforumAnchor;
 		for (anAnchorIndex = 0; anAnchorIndex<theNumberOfAnchors; anAnchorIndex++) {
-			aURL = theAnchors[anAnchorIndex].href;
-			if ((aURL) && (aURL.match(theRegularExpression)) && (theURLs.indexOf(aURL)===-1)) {
-				theURLs.push(aURL);
+			anAnchor = theAnchors[anAnchorIndex];
+			aURL = anAnchor.href;
+			if ((aURL) && (aURL.match(theRegularExpression))) {
+				isSubforumAnchor = (anAnchor.getElementsByTagName('img').length<1);
+				if (theURLs.indexOf(aURL)===-1) {
+					theURLs.push(aURL);
+					theSubforumFlagsByURL[aURL] = isSubforumAnchor;
+				} else if (!isSubforumAnchor) {
+					theSubforumFlagsByURL[aURL] = false;
+				}
 			}
 		}
 	}
-	safari.self.tab.setContextMenuEventUserInfo(theEvent, theURLs);
+	safari.self.tab.setContextMenuEventUserInfo(theEvent, {
+		'com.manytricks.UnreadTabs.URLs': theURLs,
+		'com.manytricks.UnreadTabs.SubforumFlags': theSubforumFlagsByURL
+	});
 }, false);

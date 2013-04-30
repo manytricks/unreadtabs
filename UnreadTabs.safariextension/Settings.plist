@@ -44,5 +44,19 @@
 			<string>close</string>
 		</array>
 	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Separator</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>com.manytricks.UnreadTabs.SkipSubForumPosts</string>
+		<key>Title</key>
+		<string>Skip posts in subforums and forum subscription summaries</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
 </array>
 </plist>
