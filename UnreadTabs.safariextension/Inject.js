@@ -26,7 +26,7 @@ document.addEventListener('contextmenu', function (theEvent) {
 			anAnchor = theAnchors[i];
 			aURL = anAnchor.href;
 			if ((aURL) && (aURL.match(theRegularExpression))) {
-				isSubforumAnchor = (anAnchor.getElementsByTagName('img').length<1);
+				isSubforumAnchor = ((anAnchor.getElementsByTagName('img').length<1) && (window.getComputedStyle(anAnchor).backgroundImage=='none'));
 				if (theURLs.indexOf(aURL)===-1) {
 					theURLs.push(aURL);
 					theSubforumFlagsByURL[aURL] = isSubforumAnchor;
