@@ -89,7 +89,7 @@
 									theWindow.openTab(theNewTabLevel).url = theLatestContextMenuURLs[i];
 								}
 							}
-							if (theFocusSetting=='close') {
+							if ((theFocusSetting=='close') && ((theNumberOfURLs>=theEvent.userInfo['com.manytricks.UnreadTabs.URLs'].length) || (!theSettings.getItem('com.manytricks.UnreadTabs.Focus.Smart')))) {
 								theCurrentTab.close();
 							}
 							return;
