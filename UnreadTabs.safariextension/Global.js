@@ -121,7 +121,7 @@ theApplication.addEventListener('contextmenu', function (theEvent) {
 
 theApplication.addEventListener('message', function (theEvent) {
 	if ((theEvent.name=='com.manytricks.UnreadTabs.Toolbar.Open.Gathered') && ((filterUnreadPosts(theEvent.message)<1) || (!openUnreadPosts()))) {
-		switch (theLanguage) {
+		switch (navigator.language) {
 			case 'de-at':
 			case 'de-ch':
 			case 'de-de':
