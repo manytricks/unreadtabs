@@ -1,6 +1,9 @@
 // Copyright © 2013 Many Tricks (When in doubt, consider this MIT-licensed)
 
-document.addEventListener('contextmenu', function (theEvent) {
+
+// Basic functionality
+
+function gatherUnreadPostsContext() {
 	var theURLs = new Array();
 	var theSubforumFlagsByURL = new Object();
 	var theAnchors = document.getElementsByTagName('a');
@@ -36,8 +39,21 @@ document.addEventListener('contextmenu', function (theEvent) {
 			}
 		}
 	}
-	safari.self.tab.setContextMenuEventUserInfo(theEvent, {
+	return {
 		'com.manytricks.UnreadTabs.URLs': theURLs,
 		'com.manytricks.UnreadTabs.SubforumFlags': theSubforumFlagsByURL
-	});
+	};
+}
+
+
+// Event handlers
+
+document.addEventListener('contextmenu', function (theEvent) {
+	safari.self.tab.setContextMenuEventUserInfo(theEvent, gatherUnreadPostsContext());
+}, false);
+
+safari.self.addEventListener('message', function (theEvent) {
+	if ((theEvent.name=='com.manytricks.UnreadTabs.Toolbar.Gather') && (window.top==window.self)) {
+		safari.self.tab.dispatchMessage('com.manytricks.UnreadTabs.Toolbar.Open.Gathered', gatherUnreadPostsContext());
+	}
 }, false);
