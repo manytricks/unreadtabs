@@ -3,7 +3,7 @@
 
 // Basic functionality
 
-function gatherUnreadPostsContext() {
+function unreadPostsContext() {
 	var theURLs = new Array();
 	var theSubforumFlagsByURL = new Object();
 	var theAnchors = document.getElementsByTagName('a');
@@ -40,8 +40,9 @@ function gatherUnreadPostsContext() {
 		}
 	}
 	return {
-		'com.manytricks.UnreadTabs.URLs': theURLs,
-		'com.manytricks.UnreadTabs.SubforumFlags': theSubforumFlagsByURL
+		'com.manytricks.UnreadTabs.PageURL': document.location.href,
+		'com.manytricks.UnreadTabs.SubforumFlags': theSubforumFlagsByURL,
+		'com.manytricks.UnreadTabs.UnreadPostURLs': theURLs
 	};
 }
 
@@ -49,11 +50,27 @@ function gatherUnreadPostsContext() {
 // Event handlers
 
 document.addEventListener('contextmenu', function (theEvent) {
-	safari.self.tab.setContextMenuEventUserInfo(theEvent, gatherUnreadPostsContext());
+	safari.self.tab.setContextMenuEventUserInfo(theEvent, unreadPostsContext());
 }, false);
 
 safari.self.addEventListener('message', function (theEvent) {
-	if ((theEvent.name=='com.manytricks.UnreadTabs.Toolbar.Gather') && (window.top==window.self)) {
-		safari.self.tab.dispatchMessage('com.manytricks.UnreadTabs.Toolbar.Open.Gathered', gatherUnreadPostsContext());
+	if (window.top==window.self) {
+		switch (theEvent.name) {
+			case 'com.manytricks.UnreadTabs.Toolbar.Gather':
+				safari.self.tab.dispatchMessage('com.manytricks.UnreadTabs.Toolbar.Gathered', unreadPostsContext());
+				break;
+			case 'com.manytricks.UnreadTabs.Toolbar.Validate':
+				safari.self.tab.dispatchMessage('com.manytricks.UnreadTabs.Toolbar.Validated', unreadPostsContext());
+				break;
+			default:
+				break;
+		}
 	}
 }, false);
+
+
+// Disable button while the page is loading
+
+safari.self.tab.dispatchMessage('com.manytricks.UnreadTabs.Toolbar.Validated', {
+	'com.manytricks.UnreadTabs.PageURL': document.location.href
+});

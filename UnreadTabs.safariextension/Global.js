@@ -7,7 +7,7 @@ var theFilteredURLs = null;
 var didSkipSubforumPosts = false;
 
 function filterUnreadPosts(theContext) {
-	theFilteredURLs = theContext['com.manytricks.UnreadTabs.URLs'];
+	theFilteredURLs = theContext['com.manytricks.UnreadTabs.UnreadPostURLs'];
 	didSkipSubforumPosts = false;
 	if (theFilteredURLs) {
 		var theNumberOfURLs = theFilteredURLs.length;
@@ -120,16 +120,63 @@ theApplication.addEventListener('contextmenu', function (theEvent) {
 }, false);
 
 theApplication.addEventListener('message', function (theEvent) {
-	if ((theEvent.name=='com.manytricks.UnreadTabs.Toolbar.Open.Gathered') && ((filterUnreadPosts(theEvent.message)<1) || (!openUnreadPosts()))) {
-		switch (navigator.language) {
-			case 'de-at':
-			case 'de-ch':
-			case 'de-de':
-				alert('Konnte auf dieser Seite keine ungelesenen Beiträge finden.');
-				break;
-			default:
-				alert('Couldn\'t find any unread posts on this page.');
-				break;
-		}
+	var performAction = false;
+	switch (theEvent.name) {
+		case 'com.manytricks.UnreadTabs.Toolbar.Gathered':
+			performAction = true;
+		case 'com.manytricks.UnreadTabs.Toolbar.Validated':
+			var theContext = theEvent.message;
+			var theNumberOfURLs = filterUnreadPosts(theContext);
+			if (performAction) {
+				if ((theNumberOfURLs<1) || (!openUnreadPosts())) {
+					switch (navigator.language) {
+						case 'de-at':
+						case 'de-ch':
+						case 'de-de':
+							alert('Konnte auf dieser Seite keine ungelesenen Beiträge finden.');
+							break;
+						default:
+							alert('Couldn\'t find any unread posts on this page.');
+							break;
+					}
+				}
+			} else {
+				var theToolbarItems = safari.extension.toolbarItems;
+				var theNumberOfToolbarItems = theToolbarItems.length;
+				if (theNumberOfToolbarItems>0) {
+					var theURL = theContext['com.manytricks.UnreadTabs.PageURL'];
+					var showBadge = safari.extension.settings.getItem('com.manytricks.UnreadTabs.Toolbar.Badge');
+					var i;
+					var aToolbarItem;
+					for (i = 0; i<theNumberOfToolbarItems; i++) {
+						aToolbarItem = theToolbarItems[i];
+						if ((aToolbarItem.identifier=='com.manytricks.UnreadTabs.Toolbar.Open') && (aToolbarItem.browserWindow.activeTab.url==theURL)) {
+							aToolbarItem.disabled = (theNumberOfURLs<1);
+							aToolbarItem.badge = (showBadge ? theNumberOfURLs : 0);
+						}
+					}
+				}
+			}
+			break;
+		default:
+			break;
+	}
+}, false);
+
+theApplication.addEventListener('validate', function (theEvent) {
+	switch (theEvent.command) {
+		case 'com.manytricks.UnreadTabs.Toolbar.Open':
+			var theTab = theApplication.activeBrowserWindow.activeTab;
+			var theURL = theTab.url;
+			if ((theURL) && (!theURL.match(/^file:|^about:/i))) {
+				theTab.page.dispatchMessage('com.manytricks.UnreadTabs.Toolbar.Validate', null);
+			} else {
+				var theToolbarItem = theEvent.target;
+				theToolbarItem.disabled =  true;
+				theToolbarItem.badge = 0;
+			}
+			break;
+		default:
+			break;
 	}
 }, false);

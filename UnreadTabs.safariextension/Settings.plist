@@ -58,5 +58,17 @@
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>com.manytricks.UnreadTabs.Focus.Smart</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>com.manytricks.UnreadTabs.Toolbar.Badge</string>
+	</dict>
 </array>
 </plist>
