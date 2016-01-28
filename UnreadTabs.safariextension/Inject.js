@@ -1,4 +1,4 @@
-// Copyright © 2013 Many Tricks (When in doubt, consider this MIT-licensed)
+// Copyright © 2013-2016 Many Tricks (When in doubt, consider this MIT-licensed)
 
 
 // Basic functionality
@@ -15,26 +15,34 @@ function unreadPostsContext() {
 				vBulletin:
 					[&?]goto=newpost
 					-new(-post).htm
+
+				XenForo:
+					/unread$
 		
 				Burning Board:
 					[&?]action=firstnew
 
 		*/
-		var theRegularExpression = /[&?]goto=newpost|-new(-post)?\.htm|[&?]action=firstnew/i;
+		var thePotentialSubforumExpression = /[&?]goto=newpost|-new(-post)?\.htm/i;	// vBulletin
+		var theOtherExpression = /\/unread$|[&?]action=firstnew/i;	// everything else
 		var i;
 		var anAnchor;
 		var aURL;
+		var isPotentialSubforumMatch;
 		var isSubforumAnchor;
 		for (i = 0; i<theNumberOfAnchors; i++) {
 			anAnchor = theAnchors[i];
 			aURL = anAnchor.href;
-			if ((aURL) && (aURL.match(theRegularExpression))) {
-				isSubforumAnchor = ((anAnchor.getElementsByTagName('img').length<1) && (window.getComputedStyle(anAnchor).backgroundImage=='none'));
-				if (theURLs.indexOf(aURL)===-1) {
-					theURLs.push(aURL);
-					theSubforumFlagsByURL[aURL] = isSubforumAnchor;
-				} else if (!isSubforumAnchor) {
-					theSubforumFlagsByURL[aURL] = false;
+			if (aURL) {
+				isPotentialSubforumMatch = thePotentialSubforumExpression.test(aURL);
+				if (isPotentialSubforumMatch || theOtherExpression.test(aURL)) {
+					isSubforumAnchor = (isPotentialSubforumMatch && (anAnchor.getElementsByTagName('img').length<1) && (window.getComputedStyle(anAnchor).backgroundImage=='none'));
+					if (theURLs.indexOf(aURL)===-1) {
+						theURLs.push(aURL);
+						theSubforumFlagsByURL[aURL] = isSubforumAnchor;
+					} else if (!isSubforumAnchor) {
+						theSubforumFlagsByURL[aURL] = false;
+					}
 				}
 			}
 		}

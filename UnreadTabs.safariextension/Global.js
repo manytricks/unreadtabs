@@ -1,4 +1,4 @@
-// Copyright © 2013 Many Tricks (When in doubt, consider this MIT-licensed)
+// Copyright © 2013-2016 Many Tricks (When in doubt, consider this MIT-licensed)
 
 
 // Basic functionality

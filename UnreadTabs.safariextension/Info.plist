@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Many Tricks</string>
 	<key>Builder Version</key>
-	<string>8536.30.1</string>
+	<string>11601.4.4</string>
 	<key>CFBundleDisplayName</key>
 	<string>Unread → Tabs</string>
 	<key>CFBundleIdentifier</key>
@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.1</string>
+	<string>1.2</string>
 	<key>CFBundleVersion</key>
-	<string>1017</string>
+	<string>1018</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -50,6 +50,8 @@
 	</dict>
 	<key>Description</key>
 	<string>Use a contextual menu item to open all unread forum posts in new tabs, with just one click.</string>
+	<key>DeveloperIdentifier</key>
+	<string>METK467GW2</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
